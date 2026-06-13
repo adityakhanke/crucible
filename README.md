@@ -114,4 +114,4 @@ The 16 GB VRAM limit is not a limitation — it's a forcing function. Only one m
 
 ## License
 
-MIT
+GNU General Public License v3.0
