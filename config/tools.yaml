@@ -1,0 +1,59 @@
+# CRUCIBLE Tool Manifest
+# Declarative tool registry. ToolRouter loads this at startup.
+
+tools:
+  arxiv_search:
+    type: rest_api
+    endpoint: "https://export.arxiv.org/api/query"
+    permissions: [read]
+    rate_limit: 60  # per hour
+    requires_approval: false
+
+  arxiv_fetch_pdf:
+    type: rest_api
+    endpoint: "https://export.arxiv.org/pdf/{paper_id}"
+    permissions: [read, download]
+    rate_limit: 30
+    output_dir: "./data/papers/"
+    requires_approval: false
+
+  semantic_scholar:
+    type: rest_api
+    endpoint: "https://api.semanticscholar.org/graph/v1"
+    permissions: [read]
+    rate_limit: 100
+    requires_approval: false
+
+  papers_with_code:
+    type: rest_api
+    endpoint: "https://paperswithcode.com/api/v1"
+    permissions: [read]
+    rate_limit: 60
+    requires_approval: false
+
+  neo4j_query:
+    type: local_service
+    endpoint: "bolt://localhost:7687"
+    permissions: [read, write]
+    requires_approval: false
+
+  mem0_read:
+    type: local_service
+    permissions: [read]
+    requires_approval: false
+
+  mem0_write:
+    type: local_service
+    permissions: [write]
+    requires_approval: false
+
+  shell_execute:
+    type: system
+    permissions: [execute]
+    requires_approval: true  # ALWAYS pauses for human review
+
+  file_write_external:
+    type: system
+    permissions: [write]
+    target_dirs: ["./data/outputs/", "./data/experiments/"]
+    requires_approval: true  # ALWAYS pauses for human review

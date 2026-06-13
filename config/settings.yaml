@@ -1,0 +1,65 @@
+# CRUCIBLE Settings
+# All paths are relative to project root unless absolute
+
+paths:
+  papers_dir: "./data/papers"
+  checkpoints_dir: "./data/checkpoints"
+  outputs_dir: "./data/outputs"
+  journal_dir: "./data/journal"
+  frontier_map: "./data/frontier_map.json"
+  seed_corpus: "./data/seed_corpus.json"
+  prompts_dir: "./prompts"
+
+graph:
+  # "neo4j" or "kuzu"
+  backend: "neo4j"
+  neo4j_uri: "bolt://localhost:7687"
+  neo4j_user: "neo4j"
+  neo4j_password: "crucible-dev"
+  kuzu_path: "./data/kuzu_db"
+
+vector:
+  qdrant_host: "localhost"
+  qdrant_port: 6333
+  embedding_model: "all-MiniLM-L6-v2"
+  # Collections
+  mem0_collection: "mem0_semantic_memory"
+  archive_collection: "archived_graph_nodes"
+
+memory:
+  mem0_backend: "qdrant"
+
+engine:
+  # Max tokens per LLM invocation
+  max_context_tokens: 32000
+  # Token budget slices
+  system_prompt_tokens: 1500
+  memory_tokens: 2000
+  graph_context_tokens: 10000
+  prior_phase_tokens: 8000
+  generation_tokens: 12000
+
+scheduler:
+  # SCOUT: run nightly
+  scout_cron: "0 2 * * *"
+  # DIALECTIC: every 3 days or when 5+ new papers accumulated
+  dialectic_interval_days: 3
+  dialectic_min_new_papers: 5
+
+decay:
+  # Topological decay threshold for archiving
+  archive_threshold: 12
+  # Max belief propagation iterations
+  max_propagation_iterations: 5
+
+entity_resolution:
+  # Cosine similarity threshold for candidate matches
+  similarity_threshold: 0.85
+  # Max candidates to consider
+  max_candidates: 3
+
+genesis:
+  # Number of foundational papers to fetch per seed
+  foundational_count: 5
+  # Target total seed corpus size
+  target_corpus_size: 15

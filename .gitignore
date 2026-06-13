@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+
+# Data (keep structure, ignore content)
+data/papers/*.pdf
+data/papers/*_sections/
+data/checkpoints/
+data/journal/*.json
+data/journal/*.md
+data/logs/
+data/frontier_map.json
+data/seed_corpus.json
+
+# Models (large files)
+*.gguf
+*.safetensors
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

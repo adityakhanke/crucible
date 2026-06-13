@@ -1,0 +1,39 @@
+# CRUCIBLE - Dependencies
+# Install: pip install -r requirements.txt
+
+# Orchestration
+langgraph>=0.2.0
+langchain-core>=0.3.0
+
+# Schemas & Validation
+pydantic>=2.0
+
+# Knowledge Graph
+neo4j>=5.0
+# Alternative: kuzu>=0.4.0
+
+# Vector Store & Memory
+qdrant-client>=1.9.0
+mem0ai>=0.1.0
+
+# Embeddings (CPU-only)
+sentence-transformers>=3.0
+
+# PDF Parsing
+docling>=2.0
+
+# HTTP / API clients
+httpx>=0.27
+aiohttp>=3.9
+
+# LLM client (OpenAI-compatible endpoints)
+openai>=1.30
+
+# Utilities
+pyyaml>=6.0
+rich>=13.0
+click>=8.1
+tenacity>=8.0
+
+# Optional: for graph visualization
+# pyvis>=0.3

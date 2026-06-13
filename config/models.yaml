@@ -1,0 +1,97 @@
+# CRUCIBLE Model Roster
+# Only one model loaded at a time. 16 GB VRAM constraint.
+
+inference:
+  # Health check settings
+  health_check_url: "http://localhost:{port}/health"
+  health_check_timeout: 60
+  health_check_interval: 1
+
+  engines:
+    llamacpp:
+      binary: "llama-server"
+      default_port: 8080
+      # Common args for all llama.cpp models
+      common_args:
+        - "--host"
+        - "0.0.0.0"
+
+    sglang:
+      # python -m sglang.launch_server
+      module: "sglang.launch_server"
+      default_port: 8081
+      common_args: []
+
+    vllm:
+      module: "vllm.entrypoints.openai.api_server"
+      default_port: 8081
+      common_args: []
+
+roster:
+  prospector:
+    name: "DeepSeek-R1-Distill-Qwen-14B"
+    phase: "survey"
+    engine: "llamacpp"
+    model_path: "~/models/deepseek-r1-distill-qwen-14b-Q4_K_M.gguf"
+    context_length: 32768
+    vram_gb: 14
+    port: 8080
+    extra_args:
+      - "--ctx-size"
+      - "32768"
+      - "--n-gpu-layers"
+      - "99"
+
+  cartographer:
+    name: "Ministral-3-14B-Instruct"
+    phase: "map"
+    engine: "llamacpp"
+    model_path: "~/models/ministral-3-14b-instruct-Q4_K_M.gguf"
+    context_length: 20480
+    vram_gb: 11
+    port: 8080
+    extra_args:
+      - "--ctx-size"
+      - "20480"
+      - "--n-gpu-layers"
+      - "99"
+
+  demolisher:
+    name: "Phi-4-Reasoning-14.7B"
+    phase: "attack"
+    engine: "llamacpp"
+    model_path: "~/models/phi-4-reasoning-14.7b-Q4_K_M.gguf"
+    context_length: 16384  # Capped — saves 3-4 GB headroom
+    vram_gb: 13
+    port: 8080
+    extra_args:
+      - "--ctx-size"
+      - "16384"
+      - "--n-gpu-layers"
+      - "99"
+
+  integrator:
+    name: "Gemma-3-12B"
+    phase: "synthesize"
+    engine: "llamacpp"
+    model_path: "~/models/gemma-3-12b-Q4_K_M.gguf"
+    context_length: 16384
+    vram_gb: 9
+    port: 8080
+    extra_args:
+      - "--ctx-size"
+      - "16384"
+      - "--n-gpu-layers"
+      - "99"
+
+  auditor:
+    name: "Qwen-3.5-4B"
+    phase: "meta_review"
+    engine: "sglang"
+    model_path: "Qwen/Qwen3.5-4B"
+    context_length: 8192
+    vram_gb: 8
+    port: 8081
+    extra_args:
+      - "--quantization"
+      - "awq"
